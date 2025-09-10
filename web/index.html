@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Regression Tree Visualizer</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+      header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+      .small { color: #555; font-size: 12px; }
+      footer { margin-top: 16px; color: #666; font-size: 12px; }
+  svg { width: 100%; height: 1000px; border: 1px solid #ccc; background: #fafafa; }
+  .link { stroke: #bbb; stroke-width: 2.5px; }
+      .link.active { stroke: #ff7f0e; stroke-width: 3px; }
+  .node circle { fill: #fff; stroke: #444; stroke-width: 1.8px; }
+      .node.leaf circle { fill: #f0f7ff; }
+      .node.active circle { stroke: #ff7f0e; stroke-width: 3px; }
+      .label { font-size: 11px; fill: #222; }
+      .leaf-value { font-weight: 600; fill: #333; }
+      .stat { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: #333; }
+      button { padding: 4px 10px; }
+      input[type="range"] { vertical-align: middle; }
+  .tooltip { position: fixed; background: rgba(0,0,0,0.85); color: #fff; padding: 6px 8px; border-radius: 4px; font-size: 12px; pointer-events: none; opacity: 0; transition: opacity 80ms ease-in-out; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Regression Tree</h1>
+      <div class="small">California Housing • stream test samples through the binary tree</div>
+    </header>
+
+    <div class="controls">
+  <button id="play" disabled>Play</button>
+  <button id="pause" disabled>Pause</button>
+  <button id="step" disabled>Step</button>
+  <button id="fit">Zoom to fit</button>
+  <button id="reset">Reset balls</button>
+      <label>Speed <input id="speed" type="range" min="0" max="100" value="50" /></label>
+      <span class="stat">Sample <span id="sampleIdx">0</span>/<span id="sampleTotal">0</span></span>
+      <span class="stat">y=<span id="yTrue">-</span> • pred=<span id="yPred">-</span> • err=<span id="yErr">-</span></span>
+    </div>
+
+    <svg id="svg"></svg>
+  <div id="tooltip" class="tooltip"></div>
+
+    <footer>
+      <div class="small">Model: model/tree.json • Test data: data/california_housing_test.csv</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script type="module" src="main.js"></script>
+  </body>
+  </html>
