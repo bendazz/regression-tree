@@ -34,3 +34,18 @@ Flags:
 - `--out-dir` output directory (default `data`)
 
 Columns include all features and the target `MedHouseVal`.
+
+## Train model and run locally
+
+```
+python scripts/train_tree.py --out-dir model --max-depth 6 --min-samples-leaf 20
+python -m http.server 8000
+```
+
+Open http://localhost:8000/ (root index) or http://localhost:8000/web/ (dev index).
+
+## Deploy to GitHub Pages
+
+- Commit the generated `model/` and `data/` directories along with `index.html` at the repo root.
+- Enable GitHub Pages (Settings → Pages) with source “Deploy from a branch”, branch `main`, folder `/root`.
+- Your site will load assets via relative paths that work on Pages.

@@ -123,11 +123,19 @@ function render() {
   fitToView();
 }
 
+function basePath() {
+  // If served from /web/, go up one level to find model/ and data/
+  // If served from repo root (GitHub Pages), paths are relative to root
+  const path = window.location.pathname;
+  return path.includes('/web/') ? '..' : '.';
+}
+
 async function init() {
+  const base = basePath();
   [meta, model, testData] = await Promise.all([
-    json('/model/meta.json'),
-    json('/model/tree.json'),
-    csv('/data/california_housing_test.csv')
+    json(`${base}/model/meta.json`),
+    json(`${base}/model/tree.json`),
+    csv(`${base}/data/california_housing_test.csv`)
   ]);
   featureNames = meta.featureNames;
   sampleTotalEl.textContent = testData.length;
